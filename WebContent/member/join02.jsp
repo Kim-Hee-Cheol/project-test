@@ -185,7 +185,7 @@
                     var n = arguments;
                     t.queue.push(function () {
                         t[e].apply(t, n)
-                    })
+                    });
                 }
             }
 
@@ -282,7 +282,7 @@
                
                     </div>
                     <h2 class="title-join">회원가입</h2>
-                    <button type="button" id="joinHistoryBackBtn" class="btn-back" href="javascript:void(0)"><i class="ic-30-line-arrow-left">이전 페이지로 이동</i></button>
+                    <button type="button" class="btn-back" onclick="location.href='./join01.jsp'"><i class="ic-30-line-arrow-left">이전 페이지로 이동</i></button>
                 </header>
                 <!-- //Header -->
 
@@ -313,6 +313,19 @@
                         </div>
                     </div>
                     <div class="n-form-set">
+                        <label for="name" class="n-form-label">이름 <span class="essential">필수 입력</span></label>
+                        <input type="text" class="n-input input" id="name" name="name" placeholder="이름입력" minlength="2" maxlength="4">
+                        <p class="n-validation" id="hLayername"></p>
+                    </div>
+                    
+                     <div class="n-form-set">
+                        <label for="name" class="n-form-label">주민번호 <span class="essential">필수 입력</span></label>
+                        <input type="text" class="n-input input" id="jumin1" name="jumin1" maxlength="6">&nbsp;-&nbsp;
+                        <input type="text" class="n-input input" id="jumin2" name="jumin2" maxlength="7">
+                        <p class="n-validation" id="hLayerjumin"></p>
+                    </div>
+                    
+                    <div class="n-form-set">
                         <label for="email" class="n-form-label">이메일 <span class="essential">필수 입력</span></label>
                         <div class="n-form-layer" id = "emailFromLayer">
                             <input type="email" class="n-input input" id="email" name="email" maxlength="50" placeholder="이메일" autocomplete="off">
@@ -324,27 +337,7 @@
                                 <li><button type="button"><span></span><em>nate.com</em></button></li>
                                 <li><button type="button"><span></span><em>daum.net</em></button></li>
                             </ul>
-                        </div>
-                 
-                    </div>
-                    
-                    
-
-                    <div id="agreementDivArea" class="agreement">
-                        <div>
-                            <input type="checkbox" class="n-check" id="checkAll">
-                            <label for="checkAll" class="all">약관 전체동의</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" class="n-check agree-item required-agree-item" id="agreeCheckbox" name="agreeCheckbox">
-                            <label for="agreeCheckbox">개인정보 수집 이용동의(필수)</label>
-                           
-                        </div>
-                    
-                    <div class="n-form-set">
-                        <label for="memberId" class="n-form-label">테스트<span class="essential">필수 입력</span></label>
-                        <input type="text" class="n-input input" id="memberId">
-                        <p class="n-validation" id="hLayerid"></p>
+                        </div> 
                     </div>
                 </div>
 
@@ -362,7 +355,8 @@
     <script type="text/javascript">
         var isPassMemberId = false;
         var isPassPassword = false;
-        var isConfirmPassPassword = false;
+        
+        var isPassName = false;
         var isPassEmail = false;
         var isPassAgree = false;
 
@@ -390,6 +384,7 @@
             if (isPassJoin()) {
                 joinBtnActive(true);
             }
+           
 
 
             function validationMemberIdHandler() {
@@ -456,6 +451,10 @@
                 return isResult;
             }
         }
+        
+        
+        
+
 
         function validatePassword() {
             var password = $("#password").val().trim();
@@ -502,10 +501,10 @@
 
                     isPassPassword = true;
                     isConfirmPassPassword = true;
-
                     if (isPassJoin()) {
                         joinBtnActive(true);
                     }
+                    
                 }
             }
 
@@ -537,8 +536,8 @@
                     return false;
                 }
 
-                //8자리 이상
-                if (pw.length < 8 || pw.length > 20) {
+               
+                if (pw.length < 8 || pw.length > 20) {  
                     $msgObj.html("<font>8~20자 이내로 입력해 주십시오.<font>");
                     $("input[name='password']").attr('class', 'n-input input-danger');
                     return false;
@@ -685,7 +684,6 @@
                                     $("#hLayeremail").html(response.message);
                                     $('#hLayeremail').attr("class", "n-validation validation-passed");
                                     isPassEmail = true;
-
                                     if (isPassJoin()) {
                                         joinBtnActive(true);
                                     }
@@ -707,8 +705,9 @@
             $("#emailFromLayer").attr("class","n-form-layer");
             return false;
         }
-
+        
         function validateRecommendId() {
+            <!-- 추천인 -->
             var recommendMemberId = $('#recommendMemberId').val();
             if(!recommendMemberId || recommendMemberId == '') {
                 return true;
@@ -746,6 +745,7 @@
             return isPassMemberId && isPassPassword && isConfirmPassPassword && isPassEmail && isPassAgree;
         }
 
+      
         function togglePassword(_id, _this) {
             var _password = $("#" + _id);
             if (_password.attr("type") == "password") {
@@ -797,25 +797,6 @@
                     $("#email").focus();
                     return false;
                 }
-
-                if (!$('#agreeCheckbox').prop('checked')) {
-                    alert('회원으로 가입을 원하실 경우,\n\n\[개인정보 수집 이용동의(필수)\]에 동의하셔야 합니다.');
-                    isPassAgree = false;
-                    return false;
-                }
-
-                if (!$('#useTermsCheckbox').prop('checked')) {
-                    alert('회원으로 가입을 원하실 경우,\n\n\[무신사, 무신사스토어 이용약관(필수)\]에 동의하셔야 합니다.');
-                    isPassAgree = false;
-                    return false;
-                }
-
-                if (!$('#ageAgreeCheckbox').prop('checked')) {
-                    alert('회원으로 가입을 원하실 경우,\n\n[만 14세 미만 가입 제한(필수)]에 동의하셔야 합니다.');
-                    isPassAgree = false;
-                    return false;
-                }
-
                 return validateRecommendId();
             }
 
@@ -848,15 +829,6 @@
                 mouseFlag = true;
             });
 
-            $("#joinHistoryBackBtn").click(function () {
-                if ($('#partnerCode').val()) {
-                    if(confirm('<신규 회원 15% 할인쿠폰 받으러 가기> 이벤트 링크를 통해 다시 접속하셔야 정상 발급됩니다.')) {
-                        AppInterface.historyBack();
-                    }
-                    return;
-                }
-                AppInterface.historyBack();
-            });
 
             $("#emailFromLayer ul").on("click","li button",function(e) {
                 e.preventDefault();
@@ -907,73 +879,18 @@
                 $("#emailFromLayer").removeClass('is-active');
             });
 
-            $('#recommendMemberIdSearch').on("click", function () {
-
-                $("#hLayerRecommendMemberId").css('display','none');
-                $(".self-certify-notification").css('display','none');
-
-                if ($(this).data('type') === 'delete') {
-                    $("#recommendMemberId").val('');
-                    $("#hLayerRecommendMemberId").html('');
-                    $("#hLayerRecommendMemberId").css('display','block');
-                    $("input[name='checkRecommendMemberId']").val("0");
-                    $("#recommendMemberIdSearch").text('조회');
-                    $(this).data('type', 'search');
-                    return false;
-                }
-
-                var recommendMemberId = $('#recommendMemberId').val();
-                if (!recommendMemberId) {
-                    recommendIdSearchFailCallback('추천인 아이디를 입력해주세요');
-                    return false;
-                }
-
-                if (recommendMemberId.length < 3) {
-                    recommendIdSearchFailCallback('아이디는 3자 이상이어야 합니다.');
-                    return false;
-                }
-
-                if (!checkIdValue(recommendMemberId)) {
-                    recommendIdSearchFailCallback('사용할 수 없는 추천인 아이디입니다.');
-                    return false;
-                }
-
-                mss.my.ajax.call(
-                    {
-                        type: 'GET',
-                        url: '/api/member/v2/join/recommend/' + $('#recommendMemberId').val(),
-                        success: function (response) {
-                            if (!response.success) {
-                                recommendIdSearchFailCallback(response.message);
-                                return false;
-                            }
-
-                            $("#recommendMemberIdSearch").text('삭제');
-                            $("#recommendMemberIdSearch").data('type', 'delete');
-                            $("input[name='checkRecommendMemberId']").val("1");
-                            $("input[name='recommendMemberId']").attr('class', 'n-input input');
-                            $("#hLayerRecommendMemberId").html(response.message);
-                            $(".self-certify-notification").css('display','block');
-
-                            if (isPassJoin()) {
-                                joinBtnActive(true);
-                            }
-
-                        }, error: function() {
-                            recommendIdSearchFailCallback('사용할 수 없는 추천인 아이디입니다.');
-                        }
-                    }, true
-                );
+             
             });
 
             $("#checkAll").on("change", function () {
                 if ($('#checkAll').prop("checked")) {
                     $('.n-check').prop('checked', true);
                     isPassAgree = true;
-
+                    
                     if (isPassJoin()) {
                         joinBtnActive(true);
                     }
+  
                 } else {
                     $('.n-check').prop('checked', false);
                     isPassAgree = false;
@@ -1008,6 +925,7 @@
                     if (isPassJoin()) {
                         joinBtnActive(true);
                     }
+                   
                 }
 
                 if (requiredSelectedCnt != 3) {
@@ -1017,7 +935,6 @@
 
             });
 
-        });
         //document.ready end #######
 
         function initSessionStorage() {
@@ -1055,7 +972,13 @@
                 $("#passwordConfirmValidMessage").html(invalidMsg);
                 $("input[name='confirmPassword']").attr('class', 'n-input input');
             }
-
+			
+            invalidmsg = sessionStorage.getItem("nameInvalidMsg");
+            if (invalidMsg) {
+            	$("#hLayername").html(invalidMsg);
+            	$("#name").attr('class', 'n-input input-dangere');
+            }
+            
             invalidMsg = sessionStorage.getItem("emailInvalidMsg");
             if (sessionStorage.getItem("emailInvalidMsg")) {
                 $("#hLayeremail")
@@ -1122,8 +1045,7 @@
 
             sessionStorage.setItem("checkRecommendMemberId", $("input[name='checkRecommendMemberId']").val());
             sessionStorage.setItem("checkPhoneNumber", $("input[name='checkPhoneNumber']").val());
-            //sessionStorage.setItem("checkSmsCertification", $("input[name='checkSmsCertification']").val());
-
+ 
             sessionStorage.setItem("checkAll", $("#checkAll").prop('checked'));
             sessionStorage.setItem("agreeCheckbox", $("#agreeCheckbox").prop('checked'));
             sessionStorage.setItem("useTermsCheckbox", $("#useTermsCheckbox").prop('checked'));
