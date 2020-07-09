@@ -10,6 +10,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=yes,viewport-fit=cover">
     <link rel="shortcut icon" href="https://static.msscdn.net/favicon.ico?20200701180800" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
         
         <!-- Google Tag Manager -->
@@ -311,7 +315,7 @@
                     	<label for="address" class="n-form-label">주소<span class="essential">필수 입력</span></label>
                     	<div>
 			                <input type="text" id="postcode" name="zip1"  class="n-input" style="width:100px;" readonly />
-							<input type="button" class="n-input" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+							<input type="button" class="" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 							<input type="text" id="address" name="addr1" placeholder="주소"  class="n-input" /><br>
 							<input type="text" id="detailAddress" name="addr2" placeholder="상세주소"  class="n-input"  />
 							<input type="text" id="extraAddress" name="addr3" placeholder="참고항목"  class="n-input"  />
