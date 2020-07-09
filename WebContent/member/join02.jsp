@@ -3,13 +3,9 @@
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        
 
-        
     <title>회원가입</title>
 
-
-        
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=yes,viewport-fit=cover">
@@ -129,44 +125,12 @@
         };
         mss.ui.config.set(uiConfig);
 
-        // 본인인증 팝업 X 버튼 클릭시
-        function selfCertifyBackBtn() {
-            self.close();
-        }
-        Date.prototype.format = function(f) {
-            if (!this.valueOf()) return " ";
-
-            var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-            var d = this;
-
-            return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
-                switch ($1) {
-                    case "yyyy": return d.getFullYear();
-                    case "yy": return (d.getFullYear() % 1000).zf(2);
-                    case "MM": return (d.getMonth() + 1).zf(2);
-                    case "dd": return d.getDate().zf(2);
-                    case "E": return weekName[d.getDay()];
-                    case "HH": return d.getHours().zf(2);
-                    case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
-                    case "mm": return d.getMinutes().zf(2);
-                    case "ss": return d.getSeconds().zf(2);
-                    case "a/p": return d.getHours() < 12 ? "오전" : "오후";
-                    default: return $1;
-                }
-            });
-        };
-
-        String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
-        String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
-        Number.prototype.zf = function(len){return this.toString().zf(len);};
+        
 
 
     </script>
 
     <script src="https://static.msscdn.net/static/member/js/ajax.js?20200701180800" type="text/javascript"></script>
-
-        
-
     <script type="text/javascript">
 
         // Called when my app has identified the user.
@@ -249,17 +213,15 @@
         } catch(err) {
             console.error(err);
         }
-    </script>
-
-
         
-
+     
+    </script>
     </head>
 
     <body>
         
     <div class="musinsa-wrapper wrapper-member">
-        <h1 class="n-hidden">무신사 스토어</h1>
+        <h1 class="n-hidden">풋고추</h1>
 
         <!-- Member -->
         <div class="n-member-area form-area">
@@ -290,7 +252,7 @@
                 <div class="join-form">
                     <div class="n-form-set">
                         <label for="memberId" class="n-form-label">아이디 <span class="essential">필수 입력</span></label>
-                        <input type="text" class="n-input input" id="memberId" name="memberId" placeholder="아이디 입력(5~11자)" minlength="5" maxlength="11">
+                        <input type="text" class="n-input input" id="memberId" name="memberId" placeholder="아이디 입력(8자이상)" minlength="4" maxlength="20">
                         <p class="n-validation" id="hLayerid"></p>
                     </div>
                     <div class="n-form-set">
@@ -318,12 +280,17 @@
                         <p class="n-validation" id="hLayername"></p>
                     </div>
                     
-                     <div class="n-form-set">
-                        <label for="name" class="n-form-label">주민번호 <span class="essential">필수 입력</span></label>
-                        <input type="text" class="n-input input" id="jumin1" name="jumin1" maxlength="6">&nbsp;-&nbsp;
-                        <input type="text" class="n-input input" id="jumin2" name="jumin2" maxlength="7">
+                    <div class="n-form-set">
+                        <label for="birth" class="n-form-label">생년월일 <span class="essential">필수 입력</span></label>
+                        <input type="text" class="n-input input" id="jumin1" name="jumin1" maxlength="8" placeholder="예)19970121">
                         <p class="n-validation" id="hLayerjumin"></p>
                     </div>
+                    
+                    <div class="n-form-set" id="input-div">
+                    	<label for="tel" class="n-form-label">휴대전화 <span class="essential">필수 입력</span></label>
+		                <input type="tel" class="n-input" id="phoneNumber" name="phoneNumber" placeholder="휴대전화 입력(-없이)" minlength="10" maxlength="11">
+		                <p class="n-validation" id="searchValidPhone" style="display: none">번호 형식이 올바르지 않습니다</p>
+            		</div>
                     
                     <div class="n-form-set">
                         <label for="email" class="n-form-label">이메일 <span class="essential">필수 입력</span></label>
@@ -339,6 +306,37 @@
                             </ul>
                         </div> 
                     </div>
+                    
+                    <div class="n-form-set" id="input-div">
+                    	<label for="address" class="n-form-label">주소<span class="essential">필수 입력</span></label>
+                    	<div>
+			                <input type="text" id="postcode" name="zip1"  class="n-input" style="width:100px;" readonly />
+							<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="address" name="addr1" placeholder="주소"  class="n-input" /><br>
+							<input type="text" id="detailAddress" name="addr2" placeholder="상세주소"  class="n-input"  />
+							<input type="text" id="extraAddress" name="addr3" placeholder="참고항목"  class="n-input"  />
+			                <p class="n-validation" id="searchValidPhone" style="display: none">주소형식이 올바르지 않습니다.</p>
+		                </div>
+            		</div>
+            		
+            		
+                    <div id="agreementDivArea" class="agreement">
+                        <div>
+                            <input type="checkbox" class="n-check" id="checkAll">
+                            <label for="checkAll" class="all">약관 전체동의</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="n-check agree-item required-agree-item" id="agreeCheckbox" name="agreeCheckbox">
+                            <label for="agreeCheckbox">개인정보 수집 이용동의(필수)</label>
+                            <button type="button" class="link" onclick="privacyAgreeUsagePopBtnClickHandler()">약관보기</button>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" class="n-check agree-item required-agree-item" id="useTermsCheckbox" name="useTermsCheckbox">
+                            <label for="useTermsCheckbox">축구장 이용약관(필수)</label>
+                            <button type="button" class="link" onclick="serviceAgreementPopBtnClickHandler()">약관보기</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="joinBtnDiv" class="member-btn">
@@ -350,7 +348,48 @@
 
 
     </body>
-    
+    <script>
+    function DaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+    	
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
+    </script>
 
     <script type="text/javascript">
         var isPassMemberId = false;
@@ -361,14 +400,14 @@
         var isPassAgree = false;
 
         var joinBtnActive = function (isActive) {
-            $("#joinBtn").attr("class", "n-btn btn-primary" + (!isActive ? " disabled" : ""));
+        	 $("#joinBtn").attr("class", "n-btn btn-primary" + (!isActive ? " disabled" : ""));
         };
 
         function validateLengthMemberIdWhenKeyup() {
             $('#memberId').val($('#memberId').val().trim());
             var $memberId = $('#memberId');
-            if ($memberId.val().length > 11) {
-                var limitMemberId = $memberId.val().substring(0, 11);
+            if ($memberId.val().length > 20) {
+                var limitMemberId = $memberId.val().substring(0, 20);
                 $memberId.val(limitMemberId);
             }
         }
@@ -392,6 +431,7 @@
 
                 $("input[name='checkId']").val('0');
 
+                
                 if ($memberId.val().length === 0) {
                     $("#hLayerid")
                         .removeClass('validation-passed')
@@ -399,10 +439,10 @@
                     $memberId.attr('class', 'n-input input-danger');
                     return false;
                 }
-                if ($memberId.val().length < 5) {
+                if ($memberId.val().length < 8) {
                     $("#hLayerid")
                         .removeClass('validation-passed')
-                        .html('아이디는 5자 이상이어야 합니다.');
+                        .html('아이디는 8자 이상이어야 합니다.');
                     $memberId.attr('class', 'n-input input-danger');
                     return false;
                 } else {
@@ -639,7 +679,75 @@
                 }
             }
         }
+        
+     
+        
+        
+        var changeFndTarget = function(t){
+            switch(t){
+                case 'email':
+                    $('#email').css('display','');
+                    $('#phoneNumber').css('display','none');
+                    $('#sendCertPhoneBtn').css('display','none');
+                    $('#reSendCertPhoneBtn').css('display','none');
+                    $('#phoneCertification').css('display','none');
+                    $('#phoneNumber').attr("readonly", false);
+                    $('#phoneNumber').val('');
+                    $("#searchIdBtn").prop("disabled", true);
+                    $("#input-div").attr('class', 'n-form-set');
+                    $('#certNumber').val('');
+                    break;
+                case 'phone':
+                    $('#email').css('display','none');
+                    $('#phoneNumber').css('display','');
+                    $('#sendCertPhoneBtn').css('display','');
+                    $('#phoneCertification').css('display','none');
+                    $('#reSendCertPhoneBtn').css('display','none');
+                    $('#email').val('');
+                    $("#input-div").attr('class', 'n-form-item');
+                    $("#searchIdBtn").prop("disabled", true);
+                    $("#sendCertPhoneBtn").attr('disabled', false);
+                    break;
+            }
+            $("#searchValidPhone").hide();
+            $("#searchValidEmail").hide();
+        }
+        
+        function phoneValidation() {
 
+            var phoneNumber = $('#phoneNumber').val();
+
+            if (!(phoneNumber.length >= 10 && phoneNumber.length <= 11)) {
+                return false;
+            }
+
+            var regNumber = /^[0-9]*$/;
+            if(!regNumber.test(phoneNumber)){
+                $("#phoneNumber").val(phoneNumber.replace(/[^0-9]/g,""));
+                $("#phoneNumber").focus();
+                return false;
+            }
+
+            return true;
+        }
+		
+       function validatePhone() {
+    	   $('#phoneNumber').on("keyup", function () {
+               if ($(this).val().length < 1) {
+                   $("#searchValidPhone").show();
+                   $("#searchValidPhone").text('휴대전화 번호를 입력해 주세요');
+                   $("#searchIdBtn").prop("disabled", true);
+               } else if (phoneValidation()) {
+                   $("#searchValidPhone").hide();
+               } else {
+                   $("#searchValidPhone").show();
+                   $("#searchValidPhone").text('번호 형식이 올바르지 않습니다');
+                   $("#searchIdBtn").prop("disabled", true);
+               }
+           });
+       }
+		         
+         
         function validateEmail () {
 
             var trimedEmail = $("#email").val().trim();
@@ -684,6 +792,7 @@
                                     $("#hLayeremail").html(response.message);
                                     $('#hLayeremail').attr("class", "n-validation validation-passed");
                                     isPassEmail = true;
+
                                     if (isPassJoin()) {
                                         joinBtnActive(true);
                                     }
@@ -706,36 +815,6 @@
             return false;
         }
         
-        function validateRecommendId() {
-            <!-- 추천인 -->
-            var recommendMemberId = $('#recommendMemberId').val();
-            if(!recommendMemberId || recommendMemberId == '') {
-                return true;
-            }
-
-            //추천인이 있는 경우
-            var checkRecommendMemberId = $("input[name='checkRecommendMemberId']").val();
-            if (checkRecommendMemberId !== '1') {
-                //추천인을 조회하지 않은 경우
-                recommendIdSearchFailCallback('입력한 추천 아이디를 조회해주세요.');
-                return false;
-            }
-
-            //추천인을 조회한 경우
-            $("#hLayerRecommendMemberId").html('');
-            $("#recommendMemberId").removeClass('valid');
-            $("#recommendMemberIdSearch").text('삭제');
-            return true;
-        }
-
-        function recommendIdSearchFailCallback(resultMessage) {
-            $("#hLayerRecommendMemberId").html(resultMessage ? resultMessage : '사용할 수 없는 추천인 아이디입니다.');
-            $("#hLayerRecommendMemberId").css('display','block');
-            $("#hLayerRecommendMemberId").css('color','#ff0000');
-            $("input[name='checkRecommendMemberId']").val("0");
-            $("#recommendMemberId").focus();
-            $("input[name='recommendMemberId']").attr('class', 'n-input input-danger');
-        }
 
         function isPassJoin() {
             if ($("#recommendMemberId").val() && $("input[name='checkRecommendMemberId']").val() !== '1') {
@@ -776,6 +855,7 @@
                 validatePassword();
                 validateConfirmPassword();
                 validateEmail();
+                validatePhone();
 
                 if (!isPassMemberId) {
                     moveScrollToTargetElement("memberId");
@@ -797,6 +877,16 @@
                     $("#email").focus();
                     return false;
                 }
+                if (!$('#agreeCheckbox').prop('checked')) {
+                    alert('회원으로 가입을 원하실 경우,\n\n\[개인정보 수집 이용동의(필수)\]에 동의하셔야 합니다.');
+                    isPassAgree = false;
+                    return false;
+                }
+                if (!$('#useTermsCheckbox').prop('checked')) {
+                    alert('회원으로 가입을 원하실 경우,\n\n\[축구장 이용약관(필수)\]에 동의하셔야 합니다.');
+                    isPassAgree = false;
+                    return false;
+                }
                 return validateRecommendId();
             }
 
@@ -806,7 +896,7 @@
             $("#joinBtnDiv").on('mousedown', function (e) {
                 e.preventDefault();
             }).on('click', '#joinBtn', function (e) {
-
+            	location.href="./join03.jsp";
                 e.preventDefault();
 
                 if (isSubmit) {
@@ -935,7 +1025,7 @@
 
             });
 
-        //document.ready end #######
+
 
         function initSessionStorage() {
             $("#memberId").val(sessionStorage.getItem("memberId"));
@@ -943,17 +1033,8 @@
             $("#confirmPassword").val(sessionStorage.getItem("confirmPassword"));
             $("#email").val(sessionStorage.getItem("email"));
 
-            if (!$("#recommendMemberId").val()) {
-                $("#recommendMemberId").val(sessionStorage.getItem("recommendMemberId"));
-            }
 
 
-            if (sessionStorage.getItem("checkRecommendMemberId") === '1') {
-                $(".self-certify-notification").css('display','block');
-                $("input[name='recommendMemberId']").attr('class', 'n-input input');
-                $("input[name='checkRecommendMemberId']").val('1')
-
-            }
 
             var invalidMsg = sessionStorage.getItem("memberIdInvalidMsg");
             if (invalidMsg) {
@@ -997,7 +1078,6 @@
             $("#checkAll").prop('checked', sessionStorage.getItem("checkAll") === 'true' ? true : false);
             $("#agreeCheckbox").prop('checked', sessionStorage.getItem("agreeCheckbox") === 'true' ? true : false);
             $("#useTermsCheckbox").prop('checked', sessionStorage.getItem("useTermsCheckbox") === 'true' ? true : false);
-            $("#marketingReceiveAgreeYn").prop('checked', sessionStorage.getItem("marketingReceiveAgreeYn") === 'true' ? true : false);
             $("#ageAgreeCheckbox").prop('checked', sessionStorage.getItem("ageAgreeCheckbox") === 'true' ? true : false);
 
             isPassMemberId = sessionStorage.getItem("isPassMemberId") === 'true' ? true : false;
@@ -1021,7 +1101,6 @@
             sessionStorage.setItem("password", $("#password").val());
             sessionStorage.setItem("confirmPassword", $("#confirmPassword").val());
             sessionStorage.setItem("email", $("#email").val());
-            sessionStorage.setItem("recommendMemberId", $("#recommendMemberId").val());
 
             if ($("input[name='checkId']").val() === '0') {
                 sessionStorage.setItem("memberIdInvalidMsg", $("#hLayerid").html());
@@ -1049,8 +1128,7 @@
             sessionStorage.setItem("checkAll", $("#checkAll").prop('checked'));
             sessionStorage.setItem("agreeCheckbox", $("#agreeCheckbox").prop('checked'));
             sessionStorage.setItem("useTermsCheckbox", $("#useTermsCheckbox").prop('checked'));
-            sessionStorage.setItem("marketingReceiveAgreeYn", $("#marketingReceiveAgreeYn").prop('checked'));
-            sessionStorage.setItem("ageAgreeCheckbox", $("#ageAgreeCheckbox").prop('checked'));
+
 
             sessionStorage.setItem("isPassMemberId", isPassMemberId);
             sessionStorage.setItem("isPassPassword", isPassPassword);
@@ -1068,7 +1146,6 @@
             }
             return getTypeCheck(id, "abcdefghijklmnopqrstuvwxyz1234567890_");
 
-            /*타입비교 (비교문자 , 비교형식 ; ex: getTypeCheck(string , "1234567890") ) */
             function getTypeCheck(s, spc) {
                 for (var i = 0; i < s.length; i++) {
                     if (spc.indexOf(s.substring(i, i + 1)) < 0) {
@@ -1087,7 +1164,8 @@
             }
 
             setSessionStorage();
-            window.open('/member/v1/join/agreement/privacy-usage', '_self', popSizeOnMobile + 'statusbar=no,scrollbars=yes,toolbar=no');
+            window.open('./join04.jsp', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=550,width=700,height=600");
+
         }
 
         function serviceAgreementPopBtnClickHandler() {
@@ -1098,19 +1176,10 @@
             }
 
             setSessionStorage();
-            window.open('/member/v1/join/agreement/service', '_self', popSizeOnMobile + 'statusbar=no,scrollbars=yes,toolbar=no');
+            window.open('./join04.jsp', '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=550,width=700,height=600");
         }
 
-        function marketingAgreementPopBtnClickHandler() {
-            var popSizeOnMobile = '';
 
-            if(false) {
-                popSizeOnMobile = 'width=100%,height=100%,';
-            }
-
-            setSessionStorage();
-            window.open('/member/v1/join/agreement/marketing', '_self', popSizeOnMobile + 'statusbar=no,scrollbars=yes,toolbar=no');
-        }
     </script>
 
 
