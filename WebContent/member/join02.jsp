@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/ui/musinsa/resources/common/css/icon.min.css?20200701180800" />
     <link rel="stylesheet" href="https://static.msscdn.net/ui/musinsa/resources/mw/css/guide.min.css?20200701180800">
     <link rel="stylesheet" href="https://static.msscdn.net/ui/musinsa/resources/mw/css/layout.min.css?20200701180800">
-    <link rel="stylesheet" href="https://static.msscdn.net/ui/musinsa/resources/mw/css/member.min.css?20200701180800">
+    <link rel="stylesheet" href="../css/join.css">
 
 
         
@@ -223,12 +223,12 @@
     </head>
 
     <body>
-        
+    <table border=1>  
     <div class="musinsa-wrapper wrapper-member">
         <h1 class="n-hidden">풋고추</h1>
 
         <!-- Member -->
-        <div class="n-member-area form-area">
+        <div class="n-member-area form-area" style="background:#FFFFFF;">
 
             <form class="formBox" name="joinForm" id="joinForm" action="/member/v2/join/complete" method="post" novalidate>
                 <input type="hidden" name="checkId" value="0">
@@ -247,7 +247,7 @@
                     <div class="logo">
                
                     </div>
-                    <h2 class="title-join">회원가입</h2>
+                    <h2 class="title-join" style="font-size:40px;">회&nbsp;원&nbsp;가&nbsp;입</h2>
                     <button type="button" class="btn-back" onclick="location.href='./join01.jsp'"><i class="ic-30-line-arrow-left">이전 페이지로 이동</i></button>
                 </header>
                 <!-- //Header -->
@@ -312,16 +312,19 @@
                     </div>
                     
                     <div class="n-form-set" id="input-div">
-                    	<label for="address" class="n-form-label">주소<span class="essential">필수 입력</span></label>
-                    	<div>
-			                <input type="text" id="postcode" name="zip1"  class="n-input" style="width:100px;" readonly />
-							<input type="button" class="" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" id="address" name="addr1" placeholder="주소"  class="n-input" /><br>
-							<input type="text" id="detailAddress" name="addr2" placeholder="상세주소"  class="n-input"  />
-							<input type="text" id="extraAddress" name="addr3" placeholder="참고항목"  class="n-input"  />
-			                <p class="n-validation" id="searchValidPhone" style="display: none">주소형식이 올바르지 않습니다.</p>
-		                </div>
-            		</div>
+                        <label for="address" class="n-form-label">주소<span class="essential">필수 입력</span></label>
+                        <div>                                     
+                            <input type="text" id="postcode" name="zip1" placeholder="우편번호" class="n-input" style="width:100px; margin-top:5px;" readonly />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" class="n-input" onclick="DaumPostcode()" value="우편번호 찾기" style="width:150px; margin-top:5px; font-weight:bold; color: #424242; background:#A4A4A4; " /><br>                       
+                            
+                            <input type="text" id="address" name="addr1" placeholder="주소"  class="n-input" style="margin-top: 5px;" /><br>
+                            <input type="text" id="detailAddress" name="addr2" placeholder="상세주소"  class="n-input" style="margin-top: 5px;" />
+                            <input type="text" id="extraAddress" name="addr3" placeholder="참고항목"  class="n-input" style="margin-top: 5px;" />
+                                <p class="n-validation" id="searchValidPhone" style="display: none">주소형식이 올바르지 않습니다.</p>
+                           
+                        </div>
+                    </div>
             		
             		
                     <div id="agreementDivArea" class="agreement">
@@ -349,7 +352,7 @@
             </form>
         </div>
     </div>
-
+	</table>  
 
     </body>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
